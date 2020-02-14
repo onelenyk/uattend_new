@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
+import 'package:uattend_new/MyItemsPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,12 +9,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var routes = <String, WidgetBuilder>{
+      MyItemsPage.routeName: (BuildContext context) => new MyItemsPage(title: "MyItemsPage"),
+    };
     return MaterialApp(
       title: 'UATTEND',
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
       home: MyHomePage(title: 'Trexoz&MCL checkins'),
+      routes: routes,
     );
   }
 }
@@ -69,7 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
             ),
-          )
+          ),
+            RaisedButton(
+                child: Text("Login"),
+                onPressed: () {
+                  Navigator.pushNamed(context, MyItemsPage.routeName);
+            },
+            ),
           ],
         ),
       ),
